@@ -17,6 +17,9 @@ app.get('/hello/', (req, res) => {
   res.send('Hello again!')
 })
 
+// serve static assets
+app.use(express.static('static'))
+
 // start server
 app.listen(cfg.port, () => {
   console.log(`Example app listening on port ${cfg.port}`)
