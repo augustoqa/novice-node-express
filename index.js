@@ -1,8 +1,20 @@
 // Express application
 import express from 'express'
 
+import { fileURLToPath } from 'url'
+import { dirname, sep } from 'path'
+
 // configuration
-const cfg = { port: process.env.PORT || 4000 }
+const __dirname = dirname(fileURLToPath(import.meta.url)) + sep,
+  cfg = {
+    port: process.env.PORT || 4000,
+    dir: {
+      root: __dirname,
+      static: __dirname + 'static' + sep,
+    },
+  }
+
+console.dir(cfg, { depth: null, color: true })
 
 // Express initiation
 const app = express()
@@ -29,3 +41,6 @@ app.use(express.static('static'))
 app.listen(cfg.port, () => {
   console.log(`Example app listening on port ${cfg.port}`)
 })
+
+// export defaults
+export { cfg, app }
