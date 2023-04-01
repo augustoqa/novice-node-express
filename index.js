@@ -7,6 +7,11 @@ const cfg = { port: process.env.PORT || 4000 }
 // Express initiation
 const app = express()
 
+app.use((req, res, next) => {
+  console.log(req.url)
+  next()
+})
+
 // home page route
 app.get('/', (req, res) => {
   res.end('Hello World!')
