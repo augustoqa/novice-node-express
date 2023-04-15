@@ -1,5 +1,6 @@
 // Express application
 import express from 'express'
+import compression from 'compression'
 
 import { fileURLToPath } from 'url'
 import { dirname, sep } from 'path'
@@ -14,10 +15,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url)) + sep,
     },
   }
 
-console.dir(cfg, { depth: null, color: true })
-
 // Express initiation
 const app = express()
+
+// HTTP compression
+app.use(compression())
 
 app.use((req, res, next) => {
   console.log(req.url)
