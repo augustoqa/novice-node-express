@@ -18,6 +18,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url)) + sep,
 // Express initiation
 const app = express()
 
+// do not identify Express
+app.disable('x-powered-by')
+
 // HTTP compression
 app.use(compression())
 
