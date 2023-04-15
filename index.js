@@ -12,6 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url)) + sep,
     dir: {
       root: __dirname,
       static: __dirname + 'static' + sep,
+      views: __dirname + 'views' + sep,
     },
   }
 
@@ -24,6 +25,10 @@ app.disable('x-powered-by')
 // HTTP compression
 app.use(compression())
 
+// use EJS templates
+app.set('view engine', 'ejs')
+app.set('views', cfg.dir.views)
+
 app.use((req, res, next) => {
   console.log(req.url)
   next()
@@ -31,12 +36,12 @@ app.use((req, res, next) => {
 
 // home page route
 app.get('/', (req, res) => {
-  res.end('Hello World!')
+  res.render('message', { title: 'Hello World!' })
 })
 
 // another route
 app.get('/hello/', (req, res) => {
-  res.send('Hello again!')
+  res.render('message', { title: 'Hello again!' })
 })
 
 // serve static assets
@@ -44,7 +49,7 @@ app.use(express.static('static'))
 
 // 404 error
 app.use((req, res) => {
-  res.status(404).send('Not found')
+  res.status(404).render('message', { title: 'Not Found' })
 })
 
 // start server
